@@ -12,9 +12,9 @@ git checkout -b new_branch
 4. Creamos una conexión remota con el repositorio original:
 git remote add upstream https://github.com/juanlu99/hyggeBackend
 5. Una vez realizados los cambios en esta nueva rama:
-git add .
-git commit -m "Mensaje del Commit"
-git push -u origin new_branch
+->git add .
+->git commit -m "Mensaje del Commit"
+->git push -u origin new_branch
 6. Una vez pusheados los cambios al repo, vamos a gitHub, nos aparecerá un botón "Compare & pull request", lo pulsamos.
 7. Se abrirá una página donde podemos comentar un mensaje para la pull request, le damos a "create pull request".
 8. Si hay que realizar cambios, se modifican y se hace el push de nuevo hasta que el merge se realice.
