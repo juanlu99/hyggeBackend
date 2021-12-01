@@ -10,6 +10,7 @@ nombre varchar(45) not null,
 apellidos varchar(70) not null,
 documento_identificacion enum("DNI / NIF", "NIE"),
 passwordHash varchar(100),
+verificationCode varchar(50),
 verifiedAt date,
 createdAt date
 );
