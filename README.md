@@ -1,6 +1,7 @@
 # hyggeBackend
 
 Backend de la plataforma de gestión de espacios Hygge
+Nota: Una vez que haya algo en una carpeta se puede borrar el archivo .gitKeep
 
 #
 
