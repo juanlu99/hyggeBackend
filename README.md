@@ -11,7 +11,8 @@ Backend de la plataforma de gestión de espacios Hygge
 1. Clonear el repositorio para obtener la estrutura en carpetas.
 2. Abrir en VSCode
 3. npm install para instalar todos los paquetes de npm
-4. A la hora de trabajar CREAR UNA BRANCH NUEVA!!!!
+4. Para iniciar nodemon: npm run dev
+6. A la hora de trabajar CREAR UNA BRANCH NUEVA!!!!
 
 #
 
