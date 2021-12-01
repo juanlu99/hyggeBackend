@@ -5,7 +5,7 @@ Backend de la plataforma de gestión de espacios Hygge
 # 
 1. Clickar en el botón de fork en la parte superior derecha de la pantalla.
 Esto crea una copia del repo pero bajo tu usuario de GitHub, con una URL de este estilo:
-https://github.com/<YourUserName>/<RepoName>
+https://github.com/YourUserName/RepoName
 2. Clonamos nuestro propio repositorio forkeado.
 3. Una vez dentro de el, para trabajar, abrimos una branch con el siguiente comando:
 git checkout -b new_branch
