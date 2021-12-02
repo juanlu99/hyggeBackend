@@ -11,11 +11,8 @@ apellidos varchar(70) not null,
 documento_identificacion enum("DNI / NIF", "NIE"),
 passwordHash varchar(100) not null,
 verifiedAt date,
-createdAt date
-);
-
-create table infoUsers (
-idUser int unsigned not null,
+createdAt date,
+modifiedAt date,
 documento_identificacion varchar(9),
 foto varchar(200),
 nombre_direccion varchar(100),
@@ -25,15 +22,16 @@ numero int,
 piso int,
 letra char,
 localidad varchar(100),
-codigo_postal int,
-foreign key (idUser) references users(idUser)
+codigo_postal int
 );
 
 create table espacios (
 idEspacio int unsigned auto_increment primary key,
 descripcion varchar(400),
-aforo int
--- faltarian las claves foraneas de todas las tablas que saldrían de espacios
+aforo int,
+ciudad varchar(50),
+direccion varchar(200),
+codigo_postal int
 );
 
 create table ratings (
@@ -58,47 +56,79 @@ fecha date,
 precio decimal(4, 2),
 idUser int unsigned not null,
 idEspacio int unsigned not null,
+aceptada boolean,
 foreign key (idUser) references users(idUser),
 foreign key (idEspacio) references espacios(idEspacio)
 );
 
 create table imgEspacios (
 idEspacio int unsigned not null,
-url varchar(200),
+nombre varchar(200),
 foreign key (idEspacio) references espacios(idEspacio)
 );
 
-create table comida_y_bebida (
-idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+create table comidas (
+idComida int unsigned not null primary key
 );
 
-create table tecnología (
+create table espacios_comidas (
 idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+idComida int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idComida) references comidas(idComida)
 );
 
-create table en_el_espacio (
-idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+create table tecnologias (
+idTecnologia int unsigned not null primary key
 );
 
-create table equipamiento (
+create table espacios_tecnologias (
 idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+idTecnologia int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idTecnologia) references tecnologias(idTecnologia)
 );
 
-create table tipos_de_eventos (
+create table instalaciones (
+idInstalacion int unsigned not null primary key
+);
+
+create table espacios_instalaciones (
 idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+idInstalacion int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idInstalacion) references instalaciones(idTecnologia)
+);
+
+create table equipamientos (
+idEquipamiento int unsigned not null primary key
+);
+
+create table espacios_equipamientos (
+idEspacio int unsigned not null,
+idEquipamiento int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idEquipamiento) references equipamientos(idEquipamiento)
+);
+
+create table tipos_eventos (
+idEvento int unsigned not null primary key
+);
+
+create table espacios_tipoEventos (
+idEspacio int unsigned not null,
+idEvento int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idEvento) references tipos_eventos(idEvento)
 );
 
 create table actividades (
-idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+idActividad int unsigned not null primary key
 );
 
-create table tipo_de_espacio (
+create table espacios_actividades (
 idEspacio int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio)
+idActividad int unsigned not null,
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idActividad) references actividades(idActividad)
 );
