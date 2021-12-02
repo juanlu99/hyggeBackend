@@ -13,7 +13,6 @@ passwordHash varchar(100) not null,
 verifiedAt date,
 createdAt date,
 modifiedAt date,
-documento_identificacion varchar(9),
 foto varchar(200),
 nombre_direccion varchar(100),
 tipo_via varchar(100),
@@ -97,7 +96,7 @@ create table espacios_instalaciones (
 idEspacio int unsigned not null,
 idInstalacion int unsigned not null,
 foreign key (idEspacio) references espacios(idEspacio),
-foreign key (idInstalacion) references instalaciones(idTecnologia)
+foreign key (idInstalacion) references instalaciones(idInstalacion)
 );
 
 create table equipamientos (
