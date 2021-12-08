@@ -42,7 +42,6 @@ precioDiario decimal(4, 2)
 
 create table direcciones_espacios (
 idEspacio int unsigned not null,
-idActividad int unsigned not null,
 nombre_direccion varchar(100),
 tipo_via varchar(100),
 nombre_via varchar(100),
