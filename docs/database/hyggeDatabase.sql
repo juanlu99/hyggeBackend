@@ -18,14 +18,12 @@ foto varchar(200)
 
 create table direcciones_users (
 idUser int unsigned not null,
-idActividad int unsigned not null,
-nombre_direccion varchar(100),
+provincia varchar(100),
 tipo_via varchar(100),
 nombre_via varchar(100),
 numero int,
 piso int,
 letra char,
-localidad varchar(100),
 codigo_postal int,
 foreign key (idUser) references users(idUser)
 );
@@ -34,22 +32,17 @@ create table espacios (
 idEspacio int unsigned auto_increment primary key,
 descripcion varchar(400),
 aforo int,
-ciudad varchar(50),
-direccion varchar(200),
-codigo_postal int,
 precioDiario decimal(4, 2)
 );
 
 create table direcciones_espacios (
 idEspacio int unsigned not null,
-nombre_direccion varchar(100),
+provincia varchar(100),
+ciudad varchar(50),
 tipo_via varchar(100),
 nombre_via varchar(100),
-numero int,
-piso int,
-letra char,
-localidad varchar(100),
 codigo_postal int,
+numero int,
 foreign key (idEspacio) references espacios(idEspacio)
 );
 
@@ -212,3 +205,6 @@ insert into tipos_eventos values (9, "Reunión/Workshop");
 insert into tipos_eventos values (10, "Teambuilding/Recreación");
 
 insert into actividades values (1, "Música a todo volumen");
+
+insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8);
+insert into espacios values (2, "Bastante flojo", 3, 5.2);
