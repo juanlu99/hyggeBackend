@@ -5,10 +5,18 @@ const getPool = require(`../infrastructure/database`);
 async function findAllSpaces() {
   const pool = await getPool();
   const sql = `SELECT * FROM espacios`;
-  const [cars] = await pool.query(sql);
-  return cars;
+  const [spaces] = await pool.query(sql);
+  return spaces;
+}
+
+async function findReviewsBySpaceId(idSpace) {
+  const pool = await getPool();
+  const sql = `SELECT * FROM ratings WHERE idEspacio = ?`;
+  const [reviews] = await pool.query(sql, idSpace);
+  return reviews;
 }
 
 module.exports = {
   findAllSpaces,
+  findReviewsBySpaceId,
 };

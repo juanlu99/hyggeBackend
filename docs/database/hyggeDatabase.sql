@@ -49,7 +49,7 @@ foreign key (idEspacio) references espacios(idEspacio)
 create table ratings (
 idEspacio int unsigned not null,
 idUser int unsigned not null,
-puntuacion decimal(1, 1) not null,
+puntuacion int not null,
 opinion varchar(300),
 foreign key (idEspacio) references espacios(idEspacio),
 foreign key (idUser) references users(idUser)
@@ -208,3 +208,8 @@ insert into actividades values (1, "Música a todo volumen");
 
 insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8);
 insert into espacios values (2, "Bastante flojo", 3, 5.2);
+
+insert into users values (1, "user", "Pablo", "Pazos", "NIE", "lmbao", null, null, null, null);
+
+insert into ratings values (1, 1, 5, "Muy fresquito");
+insert into ratings values (1, 1, 2, "Podria mejorarse");
