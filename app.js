@@ -15,8 +15,9 @@ app.use(cors());
 app.use(express.static("public"));
 
 const spacesRoutes = require("./app/routes/spaces-routes");
+const usersRouter = require("./app/routes/users-routes");
 
-// POST api/v1/reviews
 app.use("/api/v1/spaces/", spacesRoutes);
+app.use("/api/v1/users/", usersRouter);
 
 app.listen(PORT, () => console.log(`Running ${PORT}`));
