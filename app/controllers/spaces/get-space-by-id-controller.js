@@ -9,8 +9,8 @@ async function getSpaceById(req, res) {
     const { id } = req.params;
     const space = await findSpaceById(id);
 
-    if (space.length === 0) {
-      throwJsonError(400, `Error parámetro no válido`);
+    if (!space) {
+      throwJsonError(401, `Este espacio no existe`);
     }
 
     res.status(200);

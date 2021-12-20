@@ -2,6 +2,7 @@
 
 const getPool = require('../infrastructure/database');
 
+
 async function createUser(user) {
   const pool = await getPool();
   const sql = `
@@ -13,6 +14,7 @@ async function createUser(user) {
   const [created] = await pool.query(sql, [name, email, passwordHash, verificationCode, 'reader', now]);
   return created.insertId;
 }
+
 
 async function findUserByEmail(email) {
   const pool = await getPool();

@@ -17,6 +17,7 @@ app.use(express.static('public'));
 const usersRoutes = require('./app/routes/users-routes');
 const spacesRoutes = require('./app/routes/spaces-routes');
 
+
 app.use('/api/v1/users/', usersRoutes);
 
 app.use('/api/v1/spaces/', spacesRoutes);
