@@ -8,7 +8,7 @@ idUser int unsigned auto_increment primary key,
 role varchar(45) not null,
 nombre varchar(45) not null,
 apellidos varchar(70) not null,
-documento_identificacion enum("DNI / NIF", "NIE"),
+documento_identificacion enum("DNI", "NIF", "NIE"),
 passwordHash varchar(100) not null,
 verifiedAt date,
 createdAt date,
@@ -32,7 +32,7 @@ create table espacios (
 idEspacio int unsigned auto_increment primary key,
 descripcion varchar(400),
 aforo int,
-precioDiario decimal(4, 2)
+precioDiario int
 );
 
 create table direcciones_espacios (
@@ -208,3 +208,6 @@ insert into actividades values (1, "Música a todo volumen");
 
 insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8);
 insert into espacios values (2, "Espacio para reuniones", 3, 5.2);
+
+insert into users values (1, "admin", "Pablo", "Pazos", "DNI", "1234", null, null, null, null);
+insert into users values (2, "user", "Antonio", "Gutierrez", "DNI", "1234", null, null, null, null);

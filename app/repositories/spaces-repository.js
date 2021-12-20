@@ -16,7 +16,26 @@ async function findSpaceById(id) {
   return spaces[0];
 }
 
+async function addSpace(space) {
+  const pool = await getPool();
+  const consulta = `INSERT INTO espacios(
+    descripcion,
+    aforo,
+    precioDiario
+    ) VALUES (?, ?, ?)`;
+
+  const { descripcion, aforo, precioDiario } = space;
+  const [created] = await pool.query(consulta, [
+    descripcion,
+    aforo,
+    precioDiario,
+  ]);
+
+  return created.insertId;
+}
+
 module.exports = {
   findAllSpaces,
   findSpaceById,
+  addSpace,
 };
