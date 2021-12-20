@@ -2,6 +2,20 @@
 
 const getPool = require('../infrastructure/database');
 
+
+async function createUser(user) {
+  const pool = await getPool();
+  const sql = `
+  insert into users (nombre, email, password, verificationCode, role, createdAt)
+  values (?, ?, ?, ?, ?, ?)
+  `;
+  const { name, email, passwordHash, verificationCode } = user;
+  const now = new Date();
+  const [created] = await pool.query(sql, [name, email, passwordHash, verificationCode, 'reader', now]);
+  return created.insertId;
+}
+
+
 async function findUserByEmail(email) {
   const pool = await getPool();
   const sql = `
@@ -11,4 +25,4 @@ async function findUserByEmail(email) {
   return user[0];
 }
 
-module.exports = { findUserByEmail };
+module.exports = { createUser, findUserByEmail };
