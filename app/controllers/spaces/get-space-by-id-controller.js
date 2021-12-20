@@ -13,6 +13,10 @@ async function getSpaceById(req, res) {
       throwJsonError(400, `Error parámetro no válido`);
     }
 
+    if (!space) {
+      throwJsonError(401, `Este espacio no existe`);
+    }
+
     res.status(200);
     res.send(space);
   } catch (error) {
