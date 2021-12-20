@@ -6,15 +6,20 @@ use hygge;
 create table users (
 idUser int unsigned auto_increment primary key,
 role varchar(45) not null,
+email varchar(100) not null,
 nombre varchar(45) not null,
-apellidos varchar(70) not null,
+apellidos varchar(70),
 documento_identificacion enum("DNI / NIF", "NIE"),
-passwordHash varchar(100) not null,
+password varchar(100) not null,
+verificationCode varchar(100) not null,
+createdAt date not null,
 verifiedAt date,
-createdAt date,
 modifiedAt date,
 foto varchar(200)
 );
+
+insert into users (idUser, role, email, nombre, password, verificationCode, createdAt, verifiedAt) values (1, "Admin", "hyggeAdmin@hygge.com", "HyggeAdmin", 
+"$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
 
 create table direcciones_users (
 idUser int unsigned not null,
