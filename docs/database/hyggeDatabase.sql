@@ -212,3 +212,6 @@ insert into actividades values (1, "Música a todo volumen");
 
 insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8);
 insert into espacios values (2, "Espacio para reuniones", 3, 5.2);
+
+insert into users (idUser, role, email, nombre, password, createdAt, verifiedAt) values (3, "Admin", "hyggeAdmin@hygge.com", "HyggeAdmin", 
+"$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
