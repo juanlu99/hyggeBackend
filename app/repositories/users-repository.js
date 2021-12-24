@@ -23,4 +23,13 @@ async function findUserByEmail(email) {
   return user[0];
 }
 
-module.exports = { createUser, findUserByEmail };
+async function findUserByID(id) {
+  const pool = await getPool();
+  const sql = `
+  select * from users where idUser = ?
+  `;
+  const [user] = await pool.query(sql, id);
+  return user[0];
+}
+
+module.exports = { createUser, findUserByEmail, findUserByID };
