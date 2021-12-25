@@ -1,3 +1,5 @@
+'use strict';
+
 const { findUserByID, uploadUserImage } = require('../../repositories/users-repository');
 const throwJsonError = require('../../errors/throw-json-error');
 const createJsonError = require('../../errors/create-json-error');
