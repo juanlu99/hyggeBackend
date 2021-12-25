@@ -20,6 +20,7 @@ async function registerUser(req, res) {
     await schema.validateAsync(body);
     const { name, email, password } = body;
     const user = await findUserByEmail(email);
+    console.log(user);
     if (user) {
       throwJsonError(400, 'Este usuario ya existe.');
     }
