@@ -11,7 +11,6 @@ async function deleteAddress(req, res) {
     const { auth, body } = req;
     const { id } = auth;
     const { id_address } = body;
-    await schema.validateAsync(id);
     const user = await findUserByID(id);
     const { idAddress } = user;
     await schema.validateAsync(id_address);
