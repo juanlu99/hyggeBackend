@@ -32,6 +32,15 @@ async function findUserByID(id) {
   return user[0];
 }
 
+async function uploadUserImage(id, image) {
+  const pool = await getPool();
+  const sql = `
+  update users set profile_image = ? where idUser = ${id}
+  `;
+  await pool.query(sql, [image, id]);
+  return true;
+}
+
 async function updateProfileInfo(id, user, updatedPassword, idAddress) {
   const { email, name, surname } = user;
   const now = new Date();
@@ -75,4 +84,4 @@ async function updateVerificationCode(id, verificationCode) {
   return true;
 }
 
-module.exports = { createUser, findUserByEmail, findUserByID, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode };
+module.exports = { createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode };
