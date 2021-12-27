@@ -32,4 +32,13 @@ async function findUserByID(id) {
   return user[0];
 }
 
-module.exports = { createUser, findUserByEmail, findUserByID };
+async function uploadUserImage(id, image) {
+  const pool = await getPool();
+  const sql = `
+  update users set profile_image = ? where idUser = ${id}
+  `;
+  await pool.query(sql, [image, id]);
+  return true;
+}
+
+module.exports = { createUser, findUserByEmail, findUserByID, uploadUserImage };
