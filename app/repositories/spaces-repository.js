@@ -16,7 +16,15 @@ async function findSpaceById(id) {
   return spaces[0];
 }
 
+async function removeSpaceById(id) {
+  const pool = await getPool();
+  const sql = 'delete from spaces where idSpace = ?';
+  await pool.query(sql, id);
+  return true;
+}
+
 module.exports = {
   findAllSpaces,
   findSpaceById,
+  removeSpaceById,
 };
