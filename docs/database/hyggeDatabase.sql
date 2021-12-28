@@ -4,7 +4,7 @@ create database hygge;
 use hygge;
 
 create table addresses  (
-idAddress int unsigned not null primary key,
+idAddress int unsigned auto_increment primary key,
 province varchar(100),
 type_street varchar(100),
 name_street varchar(100),

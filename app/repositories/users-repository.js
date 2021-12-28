@@ -41,4 +41,47 @@ async function uploadUserImage(id, image) {
   return true;
 }
 
-module.exports = { createUser, findUserByEmail, findUserByID, uploadUserImage };
+async function updateProfileInfo(id, user, updatedPassword, idAddress) {
+  const { email, name, surname } = user;
+  const now = new Date();
+  const pool = await getPool();
+  const sql = `
+  update users set email = ?, name = ?, surname = ?, password = ?, modifiedAt = ?, idAddress = ? where idUser = ?;
+  `;
+  await pool.query(sql, [email, name, surname, updatedPassword, now, idAddress, id]);
+  return true;
+}
+
+async function createAddress(address) {
+  const pool = await getPool();
+  const sql = `insert into 
+  addresses (province, type_street, name_street, number, floor, letter, zip_code)
+  values (?, ?, ?, ?, ?, ?, ?)
+  `;
+  const { province, typeStreet, nameStreet, number, floor, letter, zipCode } = address;
+  const [created] = await pool.query(sql, [province, typeStreet, nameStreet, number, floor, letter, zipCode]);
+  return created.insertId;
+}
+
+async function deleteAddressByID(idUser, idAddress) {
+  const pool = await getPool();
+  const sql = `
+  update users set idAddress = NULL where idUser = ?;
+  delete from addresses where idAddress = ?;
+  `;
+  await pool.query(sql, [idUser, idAddress]);
+  return true;
+}
+
+async function updateVerificationCode(id, verificationCode) {
+  const now = new Date();
+  const pool = await getPool();
+  const sql = `
+  update users set verificationCode = ?, modifiedAt = ?, verifiedAt = NULL
+  where idUser = ?
+  `;
+  await pool.query(sql, [verificationCode, now, id]);
+  return true;
+}
+
+module.exports = { createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode };
