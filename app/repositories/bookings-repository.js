@@ -11,4 +11,11 @@ async function findAllBookings() {
   return bookings;
 }
 
-module.exports = { findAllBookings };
+async function findBookingByID(id) {
+  const pool = await getPool();
+  const sql = 'select * from bookings where idBooking = ?';
+  const [booking] = await pool.query(sql, id);
+  return booking[0];
+}
+
+module.exports = { findAllBookings, findBookingByID };
