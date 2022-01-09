@@ -2,7 +2,6 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const app = express();
