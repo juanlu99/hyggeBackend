@@ -45,6 +45,7 @@ foreign key (idUser) references users(idUser)
 create table favourites (
 idEspacio int unsigned not null,
 idUser int unsigned not null,
+fav varchar(6) not null,
 foreign key (idEspacio) references espacios(idEspacio),
 foreign key (idUser) references users(idUser)
 );
@@ -137,6 +138,27 @@ idActividad int unsigned not null,
 foreign key (idEspacio) references espacios(idEspacio),
 foreign key (idActividad) references actividades(idActividad)
 );
+CREATE TABLE IF NOT EXISTS `reviews_espacios`.`reviews` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `idUser` INT NOT NULL,
+  `idEspacio` INT NOT NULL,
+  `comment` VARCHAR(255) NOT NULL,
+  `rating` INT NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT NULL,
+  `updatedAt` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idUser` (`idUser` ASC) VISIBLE,
+  INDEX `idEspacio` (`idEspacio` ASC) VISIBLE,
+  FOREIGN KEY (`idUser`)
+    REFERENCES `reviews_espacios`.`users` (`id`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`idEspacio`)
+    REFERENCES `reviews_espacios`.`espacios` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 insert into tipos_espacio values (1, "Restaurante");
 insert into tipos_espacio values (2, "Espacio Multiusos");
