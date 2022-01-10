@@ -27,4 +27,18 @@ async function sendMailRegister(nombre, email, code) {
   return data;
 }
 
-module.exports = { sendMailRegister };
+async function sendMailUpdatedInfo(nombre, email, code) {
+  const mailData = {
+    from: 'hyggeTeam@hygge.com',
+    to: email,
+    subject: 'Bienvenid@ a Hygge!!',
+    text: `Hola ${nombre}, se ha solicitado cambiar información sensible de su cuenta en Hygge, para realizar este cambio necesitamos tu autorización: http://localhost:3000/api/v1/users/activation?code=${code}`,
+    html: `Hola ${nombre}, se ha solicitado cambiar información sensible de su cuenta en Hygge, para realizar este cambio necesitamos tu autorización <a href="http://localhost:3000/api/v1/users/activation?code=${code}">clicka aquí</a>`,
+  };
+
+  const data = await transporter.sendMail(mailData);
+  console.log(data);
+  return data;
+}
+
+module.exports = { sendMailRegister, sendMailUpdatedInfo };

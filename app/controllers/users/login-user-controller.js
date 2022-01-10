@@ -23,7 +23,7 @@ async function loginUser(req, res) {
         "El e-mail y/o contraseña no son correctos. Inténtelo de nuevo."
       );
     }
-    const { id, name, password: passwordHash, role, verifiedAt } = user;
+    const { idUser: id, email, password: passwordHash, role, verifiedAt } = user;
     const isValidPassword = await bcrypt.compare(password, passwordHash);
     if (!isValidPassword) {
       throwJsonError(
@@ -37,7 +37,7 @@ async function loginUser(req, res) {
         "Esta cuenta aún no está activada. Compruebe su correo para user el link de activación."
       );
     }
-    const tokenPayload = { id, name, role };
+    const tokenPayload = { id, email, role };
     const { JWT_SECRET } = process.env;
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "60m" });
     const response = {

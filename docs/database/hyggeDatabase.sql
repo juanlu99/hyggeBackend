@@ -4,7 +4,7 @@ create database hygge;
 use hygge;
 
 create table addresses  (
-idAddress int unsigned not null primary key,
+idAddress int unsigned auto_increment primary key,
 province varchar(100),
 type_street varchar(100),
 name_street varchar(100),
@@ -20,7 +20,7 @@ role enum("Admin", "User") not null,
 email varchar(100) not null,
 name varchar(45) not null,
 surname varchar(70),
-id_documetn enum("DNI / NIF", "NIE"),
+id_document enum("DNI / NIF", "NIE"),
 password varchar(100) not null,
 verificationCode varchar(100) not null,
 createdAt date not null,
