@@ -16,19 +16,24 @@ async function findSpaceById(id) {
   return spaces[0];
 }
 
+// idSpace int unsigned auto_increment primary key,
+// description varchar(400),
+// capacity int,
+// diary_price decimal(4, 2),
+
 async function addSpace(space) {
   const pool = await getPool();
   const consulta = `INSERT INTO espacios(
-    descripcion,
-    aforo,
-    precioDiario
+    description,
+    capacity,
+    diary_price
     ) VALUES (?, ?, ?)`;
 
-  const { descripcion, aforo, precioDiario } = space;
+  const { description, capacity, diary_price } = space;
   const [created] = await pool.query(consulta, [
-    descripcion,
-    aforo,
-    precioDiario,
+    description,
+    capacity,
+    diary_price,
   ]);
 
   return created.insertId;

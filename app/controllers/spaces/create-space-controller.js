@@ -6,9 +6,9 @@ const { isAdmin } = require("../../helpers/utils");
 const { addSpace } = require("../../repositories/spaces-repository");
 
 const schema = Joi.object().keys({
-  descripcion: Joi.string().min(10).max(200).required(),
-  aforo: Joi.number().integer().positive().min(1).max(50),
-  precioDiario: Joi.number().integer().positive().min(10).max(500),
+  description: Joi.string().min(10).max(200).required(),
+  capacity: Joi.number().integer().positive().min(1).max(50),
+  diary_price: Joi.number().integer().positive().min(10).max(500),
 });
 
 async function createSpace(req, res) {
