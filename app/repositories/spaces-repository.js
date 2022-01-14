@@ -11,7 +11,7 @@ async function findAllSpaces() {
 
 async function findReviewsBySpaceId(idSpace) {
   const pool = await getPool();
-  const sql = `SELECT * FROM ratings WHERE idEspacio = ?`;
+  const sql = `SELECT * FROM ratings WHERE idSpace = ?`;
   const [reviews] = await pool.query(sql, idSpace);
   return reviews;
 }
