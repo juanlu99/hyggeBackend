@@ -7,7 +7,7 @@ const { findAllUsers } = require("../../repositories/users-repository");
 async function getUsers(req, res) {
   try {
     const { role } = req.auth;
-    // if (role !== 'admin') {
+    // if (role !== 'Admin') {
     //   throwJsonError(401, 'No tienes permisos para realizar esta acción');
     // }
     isAdmin(role);
