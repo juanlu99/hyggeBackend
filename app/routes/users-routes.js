@@ -5,6 +5,6 @@ const deleteUserById = require("../controllers/users/delete-user-by-id-controlle
 const validateAuth = require("../middlewares/validate-auth");
 const router = express.Router();
 
-router.route("/:id").all(validateAuth).delete(deleteUserById);
+router.route("/:id").delete(deleteUserById);
 
 module.exports = router;
