@@ -7,8 +7,8 @@ const router = express.Router();
 
 // Endpoints públicos
 router.route(`/`).get(getSpaces);
-router.route(`/:spaceId/reviews`).post(createreviewSpaceById);
 
 // Endpoints privados
+router.route(`/:spaceId/reviews`).post(createreviewSpaceById);
 
 module.exports = router;
