@@ -16,7 +16,15 @@ async function findReviewsBySpaceId(idSpace) {
   return reviews;
 }
 
+async function findSpaceById(id) {
+  const pool = await getPool();
+  const sql = "SELECT * FROM espacios WHERE idEspacio = ?";
+  const [spaces] = await pool.query(sql, id);
+  return spaces[0];
+}
+
 module.exports = {
   findAllSpaces,
   findReviewsBySpaceId,
+  findSpaceById,
 };

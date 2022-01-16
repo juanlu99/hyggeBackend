@@ -3,63 +3,41 @@ create database hygge;
 
 use hygge;
 
-create table users (
-idUser int unsigned auto_increment primary key,
-role varchar(45) not null,
-nombre varchar(45) not null,
-apellidos varchar(70) not null,
-documento_identificacion enum("DNI / NIF", "NIE"),
-passwordHash varchar(100) not null,
-verifiedAt date,
-createdAt date,
-modifiedAt date,
-foto varchar(200)
-);
-
-create table direcciones_users (
-idUser int unsigned not null,
+create table direcciones (
+idDireccion int unsigned not null primary key,
 provincia varchar(100),
 tipo_via varchar(100),
 nombre_via varchar(100),
 numero int,
 piso int,
 letra char,
-codigo_postal int,
-foreign key (idUser) references users(idUser)
+codigo_postal int
+);
+
+create table users (
+idUser int unsigned auto_increment primary key,
+role enum("Admin", "User") not null,
+email varchar(100) not null,
+nombre varchar(45) not null,
+apellidos varchar(70),
+documento_identificacion enum("DNI / NIF", "NIE"),
+password varchar(100) not null,
+verificationCode varchar(100) not null,
+createdAt date not null,
+verifiedAt date,
+modifiedAt date,
+idDireccion int unsigned,
+foto varchar(200),
+foreign key (idDireccion) references direcciones(idDireccion)
 );
 
 create table espacios (
 idEspacio int unsigned auto_increment primary key,
 descripcion varchar(400),
 aforo int,
-precioDiario decimal(4, 2)
-);
-
-create table direcciones_espacios (
-idEspacio int unsigned not null,
-provincia varchar(100),
-ciudad varchar(50),
-tipo_via varchar(100),
-nombre_via varchar(100),
-codigo_postal int,
-numero int,
-foreign key (idEspacio) references espacios(idEspacio)
-);
-
-create table ratings (
-idEspacio int unsigned not null,
-idUser int unsigned not null,
-puntuacion int not null,
-opinion varchar(300),
-foreign key (idEspacio) references espacios(idEspacio),
-foreign key (idUser) references users(idUser)
-);
-
-create table favourites (
-idEspacio int unsigned not null,
-idUser int unsigned not null,
-foreign key (idEspacio) references espacios(idEspacio),
-foreign key (idUser) references users(idUser)
+precioDiario decimal(4, 2),
+idDireccion int unsigned,
+foreign key (idDireccion) references direcciones(idDireccion)
 );
 
 create table reservas (
@@ -73,7 +51,40 @@ foreign key (idUser) references users(idUser),
 foreign key (idEspacio) references espacios(idEspacio)
 );
 
+create table ratings (
+idRating int unsigned auto_increment primary key,
+idEspacio int unsigned not null,
+idUser int unsigned not null,
+puntuacion int not null,
+idReserva int unsigned not null,
+opinion varchar(300),
+createdAt date not null,
+unique(idUser, idEspacio, idReserva),
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idUser) references users(idUser),
+foreign key (idReserva) references reservas(idReserva)
+);
+
+create table flags (
+idRating int unsigned not null,
+idUser int unsigned not null,
+motivo varchar(200) not null,
+createdAt date not null,
+unique(idRating, idUser),
+foreign key (idRating) references ratings(idRating),
+foreign key (idUser) references users(idUser)
+);
+
+create table favourites (
+idEspacio int unsigned not null,
+idUser int unsigned not null,
+unique(idEspacio, idUser),
+foreign key (idEspacio) references espacios(idEspacio),
+foreign key (idUser) references users(idUser)
+);
+
 create table imgEspacios (
+idImagen int unsigned auto_increment primary key,
 idEspacio int unsigned not null,
 nombre varchar(200),
 foreign key (idEspacio) references espacios(idEspacio)
@@ -151,6 +162,9 @@ foreign key (idEspacio) references espacios(idEspacio),
 foreign key (idActividad) references actividades(idActividad)
 );
 
+insert into users (idUser, role, email, nombre, password, verificationCode, createdAt, verifiedAt) values (1, "Admin", "hyggeAdmin@hygge.com", "HyggeAdmin", 
+"$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
+
 insert into tipos_espacio values (1, "Restaurante");
 insert into tipos_espacio values (2, "Espacio Multiusos");
 insert into tipos_espacio values (3, "Sala de fiesta");
@@ -206,8 +220,8 @@ insert into tipos_eventos values (10, "Teambuilding/Recreación");
 
 insert into actividades values (1, "Música a todo volumen");
 
-insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8);
-insert into espacios values (2, "Bastante flojo", 3, 5.2);
+insert into espacios values (1, "Espacio sencillo y muy cómodo", 7, 8, null);
+insert into espacios values (2, "Bastante flojo", 3, 5.2, null);
 
 insert into users values (1, "user", "Pablo", "Pazos", "NIE", "lmbao", null, null, null, null);
 
