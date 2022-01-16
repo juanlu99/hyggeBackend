@@ -10,10 +10,10 @@ const schema = Joi.number().positive().required();
 
 async function getReviewsBySpaceId(req, res) {
   try {
-    const { spaceId } = req.params;
-    await schema.validateAsync(spaceId);
+    const { id } = req.params;
+    await schema.validateAsync(id);
 
-    const reviews = await findReviewsBySpaceId(spaceId);
+    const reviews = await findReviewsBySpaceId(id);
 
     res.status(200).send(reviews);
   } catch (error) {

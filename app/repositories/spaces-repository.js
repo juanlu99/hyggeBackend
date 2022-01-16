@@ -9,16 +9,16 @@ async function findAllSpaces() {
   return spaces;
 }
 
-async function findReviewsBySpaceId(idSpace) {
+async function findReviewsBySpaceId(id) {
   const pool = await getPool();
   const sql = `SELECT * FROM ratings WHERE idSpace = ?`;
-  const [reviews] = await pool.query(sql, idSpace);
+  const [reviews] = await pool.query(sql, id);
   return reviews;
 }
 
 async function findSpaceById(id) {
   const pool = await getPool();
-  const sql = "SELECT * FROM espacios WHERE idEspacio = ?";
+  const sql = "SELECT * FROM spaces WHERE idSpace= ?";
   const [spaces] = await pool.query(sql, id);
   return spaces[0];
 }
