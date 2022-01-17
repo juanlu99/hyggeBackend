@@ -23,6 +23,24 @@ async function findSpaceById(id) {
   return spaces[0];
 }
 
+async function addSpace(space) {
+  const pool = await getPool();
+  const consulta = `INSERT INTO espacios(
+    description,
+    capacity,
+    diary_price
+    ) VALUES (?, ?, ?)`;
+
+  const { description, capacity, diary_price } = space;
+  const [created] = await pool.query(consulta, [
+    description,
+    capacity,
+    diary_price,
+  ]);
+
+  return created.insertId;
+}
+
 async function removeSpaceById(id) {
   const pool = await getPool();
   const sql = 'delete from spaces where idSpace = ?';
@@ -54,5 +72,6 @@ module.exports = {
   addReview,
   findReviewsBySpaceId,
   findSpaceById,
+  addSpace,
   removeSpaceById,
 };
