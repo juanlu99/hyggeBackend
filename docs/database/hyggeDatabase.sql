@@ -47,7 +47,7 @@ dateStart date,
 dateEnd date,
 idUser int unsigned not null,
 idSpace int unsigned not null,
-aceptada boolean,
+acepted boolean,
 foreign key (idUser) references users(idUser),
 foreign key (idSpace) references spaces(idSpace)
 );

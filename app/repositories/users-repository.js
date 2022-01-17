@@ -22,6 +22,31 @@ async function createUser(user) {
   return created.insertId;
 }
 
+async function activateUser(verificationCode) {
+  const now = new Date();
+  const pool = await getPool();
+  const sql = `
+      UPDATE users
+      SET verifiedAt = ?
+      WHERE verificationCode = ?
+      AND verifiedAt IS NULL
+    `;
+  const [result] = await pool.query(sql, [now, verificationCode]);
+
+  return result.affectedRows === 1;
+}
+
+async function getUserByVerificationCode(code) {
+  const pool = await getPool();
+  const sql = `
+      SELECT name, email
+      FROM users WHERE verificationCode = ?
+    `;
+  const [user] = await pool.query(sql, code);
+
+  return user[0];
+}
+
 async function findUserByEmail(email) {
   const pool = await getPool();
   const sql = `
@@ -100,4 +125,17 @@ async function removeUserById(id) {
   return true;
 }
 
-module.exports = { findAllUsers, createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode, removeUserById };
+module.exports = {
+  findAllUsers,
+  createUser,
+  activateUser,
+  getUserByVerificationCode,
+  findUserByEmail,
+  findUserByID,
+  uploadUserImage,
+  updateProfileInfo,
+  createAddress,
+  deleteAddressByID,
+  updateVerificationCode,
+  removeUserById,
+};

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const getPool = require(`../infrastructure/database`);
 
@@ -18,7 +18,7 @@ async function findReviewsBySpaceId(id) {
 
 async function findSpaceById(id) {
   const pool = await getPool();
-  const sql = "SELECT * FROM spaces WHERE idSpace = ?";
+  const sql = 'SELECT * FROM spaces WHERE idSpace = ?';
   const [spaces] = await pool.query(sql, id);
   return spaces[0];
 }
@@ -39,7 +39,7 @@ async function addSpace(space) {
 
 async function removeSpaceById(id) {
   const pool = await getPool();
-  const sql = "delete from spaces where idSpace = ?";
+  const sql = 'delete from spaces where idSpace = ?';
   await pool.query(sql, id);
   return true;
 }
@@ -52,13 +52,7 @@ async function updateSpace(id, space) {
     UPDATE spaces
     SET description = ?, capacity = ?, diary_price = ?, updatedAt = ?
     WHERE idSpace = ?`;
-  const [result] = await pool.query(sql, [
-    description,
-    capacity,
-    diary_price,
-    now,
-    id,
-  ]);
+  const [result] = await pool.query(sql, [description, capacity, diary_price, now, id]);
 
   return result.affectedRows === 1;
 }
@@ -82,6 +76,32 @@ async function addReview(idSpace, idUser, puntuation, review) {
   return reviews.insertId;
 }
 
+async function addFavourite(idSpace, idUser) {
+  const pool = await getPool();
+  const sql = `
+  insert into favourites (idSpace, idUser) values (?, ?)
+  `;
+  await pool.query(sql, [idSpace, idUser]);
+
+  return true;
+}
+
+async function removeReviewById(id) {
+  const pool = await getPool();
+  const sql = 'DELETE FROM ratings WHERE idRating = ?';
+  await pool.query(sql, id);
+
+  return true;
+}
+
+async function findReviewById(id) {
+  const pool = await getPool();
+  const sql = 'SELECT * FROM ratings WHERE idRating = ?';
+  const [ratings] = await pool.query(sql, id);
+
+  return ratings[0];
+}
+
 module.exports = {
   findAllSpaces,
   addReview,
@@ -90,4 +110,7 @@ module.exports = {
   addSpace,
   removeSpaceById,
   updateSpace,
+  addFavourite,
+  findReviewById,
+  removeReviewById,
 };
