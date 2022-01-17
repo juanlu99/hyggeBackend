@@ -1,18 +1,12 @@
-"use strict";
+'use strict';
 
-const createJsonError = require("../../errors/create-json-error");
-const { isAdmin } = require("../../helpers/utils");
-const { findAllUsers } = require("../../repositories/users-repository");
+const createJsonError = require('../../errors/create-json-error');
+const { findAllUsers } = require('../../repositories/users-repository');
+const isAdmin = require('../../helpers/isAdmin');
 
 async function getUsers(req, res) {
   try {
-    const { role } = req.auth;
-
-    if (role !== "Admin") {
-      throwJsonError(401, "No tienes permisos para realizar esta acción");
-    }
-
-    isAdmin(role);
+    isAdmin(req);
 
     const users = await findAllUsers();
 

@@ -11,7 +11,7 @@ const schemaBody = Joi.object().keys({
   review: Joi.string().min(5).max(255).required(),
 });
 
-async function createreviewSpaceById(req, res) {
+async function createReviewSpaceById(req, res) {
   try {
     const { id: userId } = req.auth;
     const { spaceId } = req.params;
@@ -34,4 +34,4 @@ async function createreviewSpaceById(req, res) {
   }
 }
 
-module.exports = createreviewSpaceById;
+module.exports = createReviewSpaceById;

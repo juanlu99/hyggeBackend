@@ -4,7 +4,7 @@ const getPool = require('../infrastructure/database');
 
 async function findAllUsers() {
   const pool = await getPool();
-  const sql = "SELECT idUser, role, nombre FROM users";
+  const sql = 'SELECT idUser, role, name FROM users';
   const [users] = await pool.query(sql);
 
   return users;
@@ -94,11 +94,10 @@ async function updateVerificationCode(id, verificationCode) {
 
 async function removeUserById(id) {
   const pool = await getPool();
-  const sql = "DELETE FROM users WHERE idUser = ?";
+  const sql = 'DELETE FROM users WHERE idUser = ?';
   await pool.query(sql, id);
 
   return true;
 }
 
-module.exports = { findAllUsers, createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode, removeUserById,
- };
+module.exports = { findAllUsers, createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode, removeUserById };
