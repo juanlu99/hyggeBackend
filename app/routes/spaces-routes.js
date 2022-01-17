@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require(`express`);
-
+const createreviewSpaceById = require("../controllers/spaces/create-review-by-space-id-controller");
 const {
   getReviewsBySpaceId,
 } = require("../controllers/spaces/get-reviews-by-space-id");
@@ -16,6 +16,7 @@ const router = express.Router();
 router.route(`/`).get(getSpaces);
 
 // Endpoints privados
+router.route(`/:spaceId/reviews`).all(validateAuth).post(createreviewSpaceById);
 
 router.route(`/:id`).all(validateAuth).get(getSpaceById).delete(deleteSpaceByID);
 router.route(`/:id/reviews`).all(validateAuth).get(getReviewsBySpaceId);
