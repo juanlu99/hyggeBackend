@@ -1,587 +1,592 @@
 {
-	"info": {
-		"_postman_id": "acc74c01-9d54-4eaa-983b-95d03417ca76",
-		"name": "hygge",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "users",
-			"item": [
-				{
-					"name": "registerUser",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Luis\",\n    \"email\": \"carricoche@test.com\",\n    \"password\": \"1234\",\n    \"verifyPassword\": \"1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/register",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const response = pm.response.json();",
-									"pm.environment.set(\"accessToken\", response.accessToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"hyggeAdmin@hygge.com\",\n    \"password\": \"1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/login",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProfileUser",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/profile",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET - getUsers",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE- deteteUser",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/users/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "uploadProfileImage",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "profileImage",
-									"type": "file",
-									"src": "/home/juanluis/Escritorio/profileTest.png"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/upload",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"upload"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateProfileUser",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Juan Luis\",\n    \"surname\": \"Méndez Álvarez\",\n    \"email\": \"juanelpaloma1@test.com\",\n    \"password\": \"12345\",\n    \"repeatPassword\": \"12345\",\n    \"province\": \"A Coruña\",\n    \"typeStreet\": \"Calle\",\n    \"nameStreet\": \"Manuel Piñeiro Pose\",\n    \"number\": 6,\n    \"floor\": 8,\n    \"letter\": \"I\",\n    \"zipCode\": 15006\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/profile",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteAddressByID",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id_address\": 9\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/address",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"address"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProfileByID",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/users/1",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "spaces",
-			"item": [
-				{
-					"name": "getSpaces",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/spaces/",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getSpacesByID",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/spaces/1",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								"1"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET - getReviewsBySpaceId",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces/1/reviews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								"1",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST - createReviewBySpaceId",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"puntuation\": 2,\n    \"review\": \"Podría mejorar\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces/2/reviews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								"2",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST - createSpace",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"description\": \"Casa rural muy cómoda\",\n    \"capacity\": 5,\n    \"diary_price\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"spaces"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT - updateSpace",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"description\": \"Muy buen sitio para pasar las vacaciones\",\n    \"capacity\": \"8\",\n    \"diary_price\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteSpaceByID",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/spaces/1",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"spaces",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "bookings",
-			"item": [
-				{
-					"name": "getBookings",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/bookings",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"bookings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getBookingByID",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{backendurl}}/api/v1/bookings/1",
-							"host": [
-								"{{backendurl}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"bookings",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "reviews",
-			"item": []
-		}
-	]
+  "info": {
+    "_postman_id": "acc74c01-9d54-4eaa-983b-95d03417ca76",
+    "name": "hygge",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "registerUser",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"STEFANO\",\n    \"email\": \"carricoche@test.com\",\n    \"password\": \"1234\",\n    \"verifyPassword\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/register",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["const response = pm.response.json();", "pm.environment.set(\"accessToken\", response.accessToken);"],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"hyggeAdmin@hygge.com\",\n    \"password\": \"1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/login",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "activateUser",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/activation?code=",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "activation"],
+              "query": [
+                {
+                  "key": "code",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getProfileUser",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/profile",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getUsers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deteteUser",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/users/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "users", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "uploadProfileImage",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profileImage",
+                  "type": "file",
+                  "src": "/home/juanluis/Escritorio/profileTest.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/upload",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateProfileUser",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Juan Luis\",\n    \"surname\": \"Méndez Álvarez\",\n    \"email\": \"juanelpaloma1@test.com\",\n    \"password\": \"12345\",\n    \"repeatPassword\": \"12345\",\n    \"province\": \"A Coruña\",\n    \"typeStreet\": \"Calle\",\n    \"nameStreet\": \"Manuel Piñeiro Pose\",\n    \"number\": 6,\n    \"floor\": 8,\n    \"letter\": \"I\",\n    \"zipCode\": 15006\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/profile",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteAddressByID",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id_address\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/address",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "address"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getProfileByID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/users/1",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "users", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "getSpaces",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/spaces/",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "spaces", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getSpacesByID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/spaces/2",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "spaces", "2"],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createSpace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"description\": \"Casa rural muy cómoda\",\n    \"capacity\": 5,\n    \"diary_price\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/spaces",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "spaces"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateSpace",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"description\": \"Muy buen sitio para pasar las vacaciones\",\n    \"capacity\": \"8\",\n    \"diary_price\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/spaces/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "spaces", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteSpaceByID",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/spaces/2",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "spaces", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "favSpace",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/spaces/1/favs",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "spaces", "1", "favs"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "bookings",
+      "item": [
+        {
+          "name": "createBooking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"idSpace\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/bookings",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getBookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/bookings",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getBookingByID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/bookings/1",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "bookings", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "statusBooking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"action\": \"refuse\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{backendurl}}/api/v1/bookings/4",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "bookings", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteBooking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/bookings/5",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "bookings", "5"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "reviews",
+      "item": [
+        {
+          "name": "createReviewBySpaceId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"puntuation\": 2,\n    \"review\": \"Podría mejorar\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/v1/spaces/1/reviews",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "spaces", "1", "reviews"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getReviewsBySpaceId",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/v1/spaces/1/reviews",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "v1", "spaces", "1", "reviews"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteReview",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{backendurl}}/api/v1/spaces/1/reviews/1",
+              "host": ["{{backendurl}}"],
+              "path": ["api", "v1", "spaces", "1", "reviews", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
