@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const Joi = require("joi");
-const createJsonError = require("../../errors/create-json-error");
-const { isAdmin } = require("../../helpers/utils");
-const { addSpace } = require("../../repositories/spaces-repository");
+const Joi = require('joi');
+const createJsonError = require('../../errors/create-json-error');
+const isAdmin = require('../../helpers/isAdmin');
+const { addSpace } = require('../../repositories/spaces-repository');
 
 const schema = Joi.object().keys({
   description: Joi.string().min(10).max(200).required(),
@@ -13,8 +13,7 @@ const schema = Joi.object().keys({
 
 async function createSpace(req, res) {
   try {
-    const { role } = req.auth;
-    isAdmin(role);
+    isAdmin(req);
 
     const { body } = req;
 
@@ -22,7 +21,7 @@ async function createSpace(req, res) {
     const spaceId = await addSpace(body);
 
     res.status(201);
-    res.send({ message: `Coche ${spaceId} creado correctamente` });
+    res.send({ message: `Espacio ${spaceId} creado correctamente` });
   } catch (error) {
     createJsonError(error, res);
   }
