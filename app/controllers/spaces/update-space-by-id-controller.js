@@ -1,12 +1,10 @@
-"use strict";
+'use strict';
 
-const Joi = require("joi");
-const createJsonError = require("../../errors/create-json-error");
-const throwJsonError = require("../../errors/throw-json-error");
-const {
-  findSpaceById,
-  updateSpace,
-} = require("../../repositories/spaces-repository");
+const Joi = require('joi');
+const createJsonError = require('../../errors/create-json-error');
+const throwJsonError = require('../../errors/throw-json-error');
+const isAdmin = require('../../helpers/isAdmin');
+const { findSpaceById, updateSpace } = require('../../repositories/spaces-repository');
 
 const schemaId = Joi.number().positive().required();
 
@@ -18,32 +16,22 @@ const schema = Joi.object().keys({
 
 async function updateSpaceById(req, res) {
   try {
-    // Obtenemos el idSpace, name de variable puesto en el spaces-routes.js
-    const { idSpace } = req.params;
-    // Validamos el idSpace
+    const { id: idSpace } = req.params;
     await schemaId.validateAsync(idSpace);
 
-    // Recuperamos el role del JWT que viene en el Authorization
-    const { role } = req.auth;
-    // Comprobamos el role
-    isAdmin(role);
+    isAdmin(req);
 
-    // Comprobamos que exites el espacio
     const space = await findSpaceById(idSpace);
     if (!space) {
-      throwJsonError(400, "Este espacio no existe");
+      throwJsonError(400, 'Este espacio no existe');
     }
-    // Cogemos del body el objeto con los cambios
     const { body } = req;
-    // Validamos el body
     await schema.validateAsync(body);
 
-    // Actualizamos el espacio
     await updateSpace(idSpace, body);
 
-    // Devolvemos que todo fue bien con un 204 - NO CONTENT
-    res.status(204);
-    res.end();
+    res.status(200);
+    res.end('Espacio modificado correctamente.');
   } catch (error) {
     createJsonError(error, res);
   }
