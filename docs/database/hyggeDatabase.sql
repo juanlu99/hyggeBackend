@@ -223,3 +223,8 @@ insert into activities values (1, "Música a todo volumen");
 
 insert into spaces values (1, "Espacio sencillo y muy cómodo", 7, 8, null);
 insert into spaces values (2, "Espacio para reuniones", 3, 5.2, null);
+
+insert into users values (1, "user", "Pablo", "Pazos", "NIE", "lmbao", null, null, null, null);
+
+insert into ratings values (1, 1, 5, "Muy fresquito");
+insert into ratings values (1, 1, 2, "Podria mejorarse");
