@@ -98,6 +98,9 @@ async function sendMailCancelBooking(name, email) {
     Saludos cordiales de la administración de Hygge. `,
     html: `<h1>Hola ${name},</h1> tu reserva no hay podido ser validada.`,
   };
+  const data = await transporter.sendMail(mailData);
+
+  return data;
 }
 
 module.exports = { sendMailRegister, sendMailUpdatedInfo, sendMailCorrectValidation, sendMailConfirmationBooking, sendMailChangeBooking, sendMailCancelBooking };
