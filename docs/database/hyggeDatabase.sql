@@ -166,6 +166,9 @@ foreign key (idActivity) references activities(idActivity)
 insert into users (idUser, role, email, name, password, verificationCode, createdAt, verifiedAt) values (1, "Admin", "hyggeAdmin@hygge.com", "HyggeAdmin", 
 "$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
 
+insert into users (idUser, role, email, name, password, verificationCode, createdAt, verifiedAt) values (2, "User", "hyggeUser@hygge.com", "HyggeUser", 
+"$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
+
 insert into space_type values (1, "Restaurante");
 insert into space_type values (2, "Espacio Multiusos");
 insert into space_type values (3, "Sala de fiesta");
