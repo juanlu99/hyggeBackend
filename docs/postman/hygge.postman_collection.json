@@ -1,47 +1,122 @@
 {
 	"info": {
-		"_postman_id": "9d0be517-76de-46fa-8571-4345bbb3437c",
+		"_postman_id": "acc74c01-9d54-4eaa-983b-95d03417ca76",
 		"name": "hygge",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "spaces",
+			"name": "users",
 			"item": [
 				{
-					"name": "GET - getSpaces",
+					"name": "registerUser",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Luis\",\n    \"email\": \"carricoche@test.com\",\n    \"password\": \"1234\",\n    \"verifyPassword\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces",
-							"protocol": "http",
+							"raw": "{{backendurl}}/api/v1/users/register",
 							"host": [
-								"localhost"
+								"{{backendurl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"v1",
-								"spaces"
+								"users",
+								"register"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET - getSpaceById",
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"pm.environment.set(\"accessToken\", response.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"hyggeAdmin@hygge.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendurl}}/api/v1/users/login",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfileUser",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer",
+								"value": "Bearer {{accessToken}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/spaces/1",
+							"raw": "{{backendurl}}/api/v1/users/profile",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET - getUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -50,8 +125,231 @@
 							"path": [
 								"api",
 								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE- deteteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadProfileImage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profileImage",
+									"type": "file",
+									"src": "/home/juanluis/Escritorio/profileTest.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{backendurl}}/api/v1/users/upload",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfileUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Juan Luis\",\n    \"surname\": \"Méndez Álvarez\",\n    \"email\": \"juanelpaloma1@test.com\",\n    \"password\": \"12345\",\n    \"repeatPassword\": \"12345\",\n    \"province\": \"A Coruña\",\n    \"typeStreet\": \"Calle\",\n    \"nameStreet\": \"Manuel Piñeiro Pose\",\n    \"number\": 6,\n    \"floor\": 8,\n    \"letter\": \"I\",\n    \"zipCode\": 15006\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendurl}}/api/v1/users/profile",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAddressByID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_address\": 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{backendurl}}/api/v1/users/address",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfileByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendurl}}/api/v1/users/1",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "spaces",
+			"item": [
+				{
+					"name": "getSpaces",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendurl}}/api/v1/spaces/",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSpacesByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendurl}}/api/v1/spaces/1",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
 								"spaces",
 								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -196,41 +494,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "users",
-			"item": [
-				{
-					"name": "GET - getUsers",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/v1/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "DELETE- deteteUser",
+					"name": "deleteSpaceByID",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -241,73 +507,81 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/users/2",
-							"protocol": "http",
+							"raw": "{{backendurl}}/api/v1/spaces/1",
 							"host": [
-								"localhost"
+								"{{backendurl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"v1",
-								"users",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST - LoginUser",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const response = pm.response.json();",
-									"pm.environment.set(\"accessToken\", response.accessToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"hyggeAdmin@hygge.com\",\n    \"password\": \"1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/v1/users/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"login"
+								"spaces",
+								"1"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "bookings",
+			"item": [
+				{
+					"name": "getBookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendurl}}/api/v1/bookings",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBookingByID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backendurl}}/api/v1/bookings/1",
+							"host": [
+								"{{backendurl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reviews",
+			"item": []
 		}
 	]
 }
