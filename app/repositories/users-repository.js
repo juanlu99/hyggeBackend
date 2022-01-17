@@ -2,6 +2,14 @@
 
 const getPool = require('../infrastructure/database');
 
+async function findAllUsers() {
+  const pool = await getPool();
+  const sql = "SELECT idUser, role, nombre FROM users";
+  const [users] = await pool.query(sql);
+
+  return users;
+}
+
 async function createUser(user) {
   const pool = await getPool();
   const sql = `
@@ -84,4 +92,4 @@ async function updateVerificationCode(id, verificationCode) {
   return true;
 }
 
-module.exports = { createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode };
+module.exports = { findAllUsers, createUser, findUserByEmail, findUserByID, uploadUserImage, updateProfileInfo, createAddress, deleteAddressByID, updateVerificationCode };

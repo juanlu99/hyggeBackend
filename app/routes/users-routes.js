@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const getUsers = require("../controllers/users/get-users-controller");
 const registerUser = require('../controllers/users/register-user-controller');
 const loginUser = require('../controllers/users/login-user-controller');
 const getProfileData = require('../controllers/users/get-profile-controller');
@@ -13,7 +14,7 @@ const getUserByID = require('../controllers/users/get-user-by-id-controller');
 const router = express.Router();
 
 //PÚBLICAS
-router.route('/').post(registerUser);
+router.route('/').post(registerUser).get(getUsers);
 router.route('/login').post(loginUser);
 
 //PRIVADAS
