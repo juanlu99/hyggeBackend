@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
 const jwt = require(`jsonwebtoken`);
 const createJsonError = require(`../errors/create-json-error`);
-const throwJsonError = require("../errors/throw-json-error");
+const throwJsonError = require('../errors/throw-json-error');
 const { JWT_SECRET } = process.env;
 
 function extractAccessToken(headers) {
   const { authorization } = headers;
-  if (!authorization || !authorization.startsWith("Bearer ")) {
-    throwJsonError(403, "Autorización requerida");
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    throwJsonError(403, 'Autorización requerida');
   }
 
-  return authorization.split(" ")[1];
+  return authorization.split(' ')[1];
   // return authorization.slice(7, authorization.length);
 }
 
@@ -20,7 +20,6 @@ function validateAuth(req, res, next) {
     const { headers } = req;
     const token = extractAccessToken(headers);
     const decodedToken = jwt.verify(token, JWT_SECRET);
-    console.log("token", decodedToken);
     const { id, name, role } = decodedToken;
     req.auth = { id, name, role };
 

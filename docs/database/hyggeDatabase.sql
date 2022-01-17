@@ -165,6 +165,7 @@ foreign key (idActivity) references activities(idActivity)
 
 insert into users (idUser, role, email, name, password, verificationCode, createdAt, verifiedAt) values (1, "Admin", "hyggeAdmin@hygge.com", "HyggeAdmin", 
 "$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
+
 insert into users (idUser, role, email, name, password, verificationCode, createdAt, verifiedAt) values (2, "User", "hyggeUser@hygge.com", "HyggeUser", 
 "$2a$10$cRlNLuF9ySIA6rW.DpwZmunEdUTzKcoGpdIcXyAstPhkOR.LvDDDC", "88af7ec004103d086b596021a91c25d25c6336da5c012c078031b51acd3d2860", "2021-12-19 20:47:00", "2021-12-19 20:47:00");
 
@@ -229,3 +230,6 @@ insert into spaces values (2, "Espacio para reuniones", 3, 5.2, null);
 insert into bookings values(1, "2021-12-19 20:47:00", "2021-12-19 20:47:00", 1, 1, null);
 
 insert into ratings values (1, 1, 1, 1, 4, "Muy bueno", "2021-12-19 20:47:00");
+
+insert into ratings values (1, 1, 5, "Muy fresquito");
+insert into ratings values (1, 1, 2, "Podria mejorarse");
