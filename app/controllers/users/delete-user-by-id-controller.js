@@ -1,32 +1,33 @@
-"use strict";
+'use strict';
 
-const Joi = require("joi");
-const createJsonError = require("../../errors/create-json-error");
-const throwJsonError = require("../../errors/throw-json-error");
-const { isAdmin } = require("../../helpers/utils");
-const { findUserById } = require("../../repositories/users-repository");
+const Joi = require('joi');
+const createJsonError = require('../../errors/create-json-error');
+const throwJsonError = require('../../errors/throw-json-error');
+const { findUserByID, removeUserById } = require('../../repositories/users-repository');
+const isAdmin = require('../../helpers/isAdmin');
 
 const schema = Joi.number().positive();
 
 async function deleteUserById(req, res) {
   try {
-    // Obtenemos el rol del JWT
-    const { role } = req.auth;
     // Chequeamos que no sea administrador
-    isAdmin(role);
+    isAdmin(req);
 
     // Cogemos el id
     const { id } = req.params;
     await schema.validateAsync(id);
 
-    const user = await findUserById(id);
+    const user = await findUserByID(id);
     if (!user) {
-      throwJsonError(400, "Usuario no existe");
+      throwJsonError(400, 'Usuario no existe');
+    }
+    if (user.role === 'Admin') {
+      throwJsonError(400, 'No se puede borrar este usuario por conflictos de autoridad.');
     }
 
     await removeUserById(id);
 
-    res.status(204).send();
+    res.status(200).send('User borrado correctamente.');
   } catch (err) {
     createJsonError(err, res);
   }
