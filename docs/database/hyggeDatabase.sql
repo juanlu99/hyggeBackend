@@ -55,7 +55,7 @@ create table ratings (
 idRating int unsigned auto_increment primary key,
 idSpace int unsigned not null,
 idUser int unsigned not null,
-idBooking int unsigned not null,
+idBooking int unsigned,
 score int not null,
 opinion varchar(300),
 createdAt date not null,
@@ -227,6 +227,3 @@ insert into spaces values (2, "Espacio para reuniones", 3, 5.2, null);
 insert into bookings values(1, "2021-12-19 20:47:00", "2021-12-19 20:47:00", 1, 1, null);
 
 insert into ratings values (1, 1, 1, 1, 4, "Muy bueno", "2021-12-19 20:47:00");
-
-insert into ratings values (1, 1, 5, "Muy fresquito");
-insert into ratings values (1, 1, 2, "Podria mejorarse");

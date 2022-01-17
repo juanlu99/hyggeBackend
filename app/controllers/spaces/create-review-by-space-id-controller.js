@@ -1,12 +1,9 @@
-"use strict";
+'use strict';
 
-const Joi = require("joi");
-const createJsonError = require("../../errors/create-json-error");
-const throwJsonError = require("../../errors/throw-json-error");
-const {
-  addReview,
-  findSpaceById,
-} = require("../../repositories/spaces-repository");
+const Joi = require('joi');
+const createJsonError = require('../../errors/create-json-error');
+const throwJsonError = require('../../errors/throw-json-error');
+const { addReview, findSpaceById } = require('../../repositories/spaces-repository');
 
 const schema = Joi.number().positive().required();
 const schemaBody = Joi.object().keys({
@@ -16,7 +13,7 @@ const schemaBody = Joi.object().keys({
 
 async function createreviewSpaceById(req, res) {
   try {
-    const { userId } = req.auth;
+    const { id: userId } = req.auth;
     const { spaceId } = req.params;
     await schema.validateAsync(spaceId);
     const { body } = req;

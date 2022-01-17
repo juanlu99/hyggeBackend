@@ -32,23 +32,19 @@ async function removeSpaceById(id) {
 
 async function findSpaceById(id) {
   const pool = await getPool();
-  const sql = "SELECT * FROM espacios WHERE idEspacio = ?";
+  const sql = 'SELECT * FROM spaces WHERE idSpace = ?';
   const [space] = await pool.query(sql, id);
   return space[0];
 }
 
 async function addReview(idSpace, idUser, puntuation, review) {
+  const now = new Date();
   const pool = await getPool();
   const sql = `
-  INSERT INTO reviews (idEspacio, idUser, puntuacion, opinion)
-  VALUES (?, ?, ?, ?)`;
+  INSERT INTO ratings (idSpace, idUser, score, opinion, createdAt)
+  VALUES (?, ?, ?, ?, ?)`;
 
-  const [reviews] = await pool.query(sql, [
-    idUser,
-    idSpace,
-    puntuation,
-    review,
-  ]);
+  const [reviews] = await pool.query(sql, [idSpace, idUser, puntuation, review, now]);
 
   return reviews.insertId;
 }
